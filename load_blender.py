@@ -103,7 +103,7 @@ def load_blender_data(basedir, half_res=False, testskip=1):
     focal = .5 * W / np.tan(.5 * camera_angle_x)
     
     # 为渲染时生成所有目标的pose，用于进行效果呈现。
-    # 生成的结果为一个360度的环形渲染轨迹（每40度一个位姿），从而渲染出一个围绕着中心的360环形视频
+    # 生成的结果为一个360度的环形渲染轨迹（共40个位姿），从而渲染出一个围绕着中心的360环形视频
     render_poses = torch.stack([pose_spherical(angle, -30.0, 4.0) for angle in np.linspace(-180,180,40+1)[:-1]], 0)
     
     # 半分辨率训练方法，会将所有数据的宽、高都缩减为一半，这样会提升训练速度、降低显存消耗，可以通过在run_nerf.py执行时加入--half_res 参数启用该逻辑
